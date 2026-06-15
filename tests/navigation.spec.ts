@@ -46,6 +46,7 @@ test('Check left menu options', async ({ page }) => {
 })
 
 test('Navigate throught the left panel', async ({ page }) => {
+    test.setTimeout(60000)
 
     await page.goto('https://opensource-demo.orangehrmlive.com/')
     await page.getByRole('textbox', { name: 'Username' }).fill('Admin')
