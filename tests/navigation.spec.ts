@@ -69,6 +69,100 @@ test('Navigate throught the left panel', async ({ page }) => {
             await page.goBack();
         }
     }
+})
+
+test('Check all the qalification links', async ({ page }) => {
+
+    const expectedPages = [
+        {
+            menu: 'Skills',
+            url: '/web/index.php/admin/viewSkills'
+        },
+        {
+            menu: 'Education',
+            url: '/web/index.php/admin/viewEducation'
+        },
+        {
+            menu: 'Licenses',
+            url: '/web/index.php/admin/viewLicenses'
+        }]
+
+
+    await page.goto('https://opensource-demo.orangehrmlive.com/')
+    await page.getByRole('textbox', { name: 'Username' }).fill('Admin')
+    await page.getByRole('textbox', { name: 'Password' }).fill('admin123')
+    await page.getByRole('button', { name: 'Login' }).click()
+
+    await expect(page.getByRole('link', { name: 'Admin' })).toBeVisible()
+
+    await page.getByRole('link', { name: 'Admin' }).click()
+
+    await page.getByRole('navigation', { name: 'Topbar Menu' }).getByText('Qualifications').click()
+
+    const qualificationOptions = page.getByRole('menu').locator('li')
+
+    for (let expectedPage of expectedPages) {
+
+        const menuOption = qualificationOptions.filter({ hasText: expectedPage.menu })
+        await menuOption.click()
+        await expect(page).toHaveURL(new RegExp(expectedPage.url))
+
+        await page.getByRole('navigation', { name: 'Topbar Menu' }).getByText('Qualifications').click()
+
+    }
+
+
+})
+
+
+
+test('Check all the Job links', async ({ page }) => {
+
+    const expectedPages = [
+        {
+            menu: 'Job Titles',
+            url: '/web/index.php/admin/viewJobTitleList'
+        },
+        {
+            menu: 'Pay grades',
+            url: '/web/index.php/admin/viewPayGrades'
+        },
+        {
+            menu: 'Employment Status',
+            url: '/web/index.php/admin/employmentStatus'
+        },
+        {
+            menu: 'Job Categories',
+            url: '/web/index.php/admin/jobCategory'
+        },
+        {
+            menu: 'Work Shifts',
+            url: '/web/index.php/admin/workShift'
+        }]
+
+
+    await page.goto('https://opensource-demo.orangehrmlive.com/')
+    await page.getByRole('textbox', { name: 'Username' }).fill('Admin')
+    await page.getByRole('textbox', { name: 'Password' }).fill('admin123')
+    await page.getByRole('button', { name: 'Login' }).click()
+
+    await expect(page.getByRole('link', { name: 'Admin' })).toBeVisible()
+
+    await page.getByRole('link', { name: 'Admin' }).click()
+
+    await page.getByRole('navigation', { name: 'Topbar Menu' }).getByText('Job').click()
+
+    const qualificationOptions = page.getByRole('menu').locator('li')
+
+    for (const expectedPage of expectedPages) {
+
+        const menuOption = qualificationOptions.filter({ hasText: expectedPage.menu })
+        await menuOption.click()
+        await expect(page).toHaveURL(new RegExp(expectedPage.url))
+
+        await page.getByRole('navigation', { name: 'Topbar Menu' }).getByText('Job').click()
+
+    }
 
 
 })
