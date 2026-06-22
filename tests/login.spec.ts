@@ -1,12 +1,16 @@
 import { expect, test } from '@playwright/test'
 import { LoginPage } from './pageobjects/LoginPage'
+import { SideMenuOption, SidePanel } from '../components/SidePanel'
 
 test('login hrm', async ({ page }) => {
 
     const loginPage = new LoginPage(page)
     await loginPage.doLogin('Admin', 'admin123')
 
-    await expect(page.getByRole('link', { name: 'Admin' })).toBeVisible()
+    const sidePanel = new SidePanel(page)
+    await sidePanel.clickOnOption(SideMenuOption.ADMIN)
+    await sidePanel.searchOptionMenu('Dashboard')
+
 
 })
 
