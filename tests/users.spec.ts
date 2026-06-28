@@ -73,7 +73,6 @@ test('select specific user for edition', async ({ page }) => {
     await page.getByRole('link', { name: 'Admin' }).click()
 
     await page.getByRole('navigation', { name: 'Topbar Menu' }).getByText('User Management').click()
-
     await page.getByRole('menuitem', { name: 'Users' }).click()
 
     const pencilToEdit = page
