@@ -4,7 +4,7 @@ import { LoginPage } from "./pageobjects/LoginPage"
 test('get all usernames registred', async ({ page }) => {
 
     const loginPage = new LoginPage(page)
-    await loginPage.doLogin('Admin', 'admin123')
+    await loginPage.loginAsAdmin()
 
     await expect(page.getByRole('link', { name: 'Admin' })).toBeVisible()
 
@@ -34,7 +34,7 @@ test('get all usernames registred', async ({ page }) => {
 test('get all employee name registred', async ({ page }) => {
 
     const loginPage = new LoginPage(page)
-    await loginPage.doLogin('Admin', 'admin123')
+    await loginPage.loginAsAdmin()
 
     await expect(page.getByRole('link', { name: 'Admin' })).toBeVisible()
 
@@ -66,7 +66,7 @@ test('select specific user for edition', async ({ page }) => {
 
     const userForEdition = 'mike_manager'
     const loginPage = new LoginPage(page)
-    await loginPage.doLogin('Admin', 'admin123')
+    await loginPage.loginAsAdmin()
 
     await expect(page.getByRole('link', { name: 'Admin' })).toBeVisible()
 
@@ -98,7 +98,7 @@ test('select specific user for edition', async ({ page }) => {
 test('select specific user for edition dinamic', async ({ page }) => {
 
     const loginPage = new LoginPage(page)
-    await loginPage.doLogin('Admin', 'admin123')
+    await loginPage.loginAsAdmin()
 
     await expect(page.getByRole('link', { name: 'Admin' })).toBeVisible()
 

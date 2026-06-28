@@ -4,7 +4,7 @@ import { LoginPage } from "./pageobjects/LoginPage"
 test('Check left menu options', async ({ page }) => {
 
     const loginPage = new LoginPage(page)
-    await loginPage.doLogin('Admin', 'admin123')
+    await loginPage.loginAsAdmin()
 
     await expect(page.getByRole('link', { name: 'Admin' })).toBeVisible()
 
@@ -48,7 +48,7 @@ test('Navigate throught the left panel', async ({ page }) => {
     test.setTimeout(60000)
 
     const loginPage = new LoginPage(page)
-    await loginPage.doLogin('Admin', 'admin123')
+    await loginPage.loginAsAdmin()
 
     await expect(page.getByRole('link', { name: 'Admin' })).toBeVisible()
 
@@ -86,7 +86,7 @@ test('Check all the qalification links', async ({ page }) => {
 
 
     const loginPage = new LoginPage(page)
-    await loginPage.doLogin('Admin', 'admin123')
+    await loginPage.loginAsAdmin()
 
     await expect(page.getByRole('link', { name: 'Admin' })).toBeVisible()
 
@@ -137,7 +137,7 @@ test('Check all the Job links', async ({ page }) => {
 
 
     const loginPage = new LoginPage(page)
-    await loginPage.doLogin('Admin', 'admin123')
+    await loginPage.loginAsAdmin()
 
     await expect(page.getByRole('link', { name: 'Admin' })).toBeVisible()
 
