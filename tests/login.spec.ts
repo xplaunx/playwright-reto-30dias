@@ -5,12 +5,22 @@ import { SideMenuOption, SidePanel } from '../components/SidePanel'
 test('login hrm', async ({ page }) => {
 
     const loginPage = new LoginPage(page)
-    await loginPage.doLogin('Admin', 'admin123')
+    await loginPage.loginAsAdmin()
 
     const sidePanel = new SidePanel(page)
     await sidePanel.clickOnOption(SideMenuOption.ADMIN)
     await sidePanel.searchOptionMenu('Dashboard')
 
+})
+
+test('login hrm with employ', async ({ page }) => {
+
+    const loginPage = new LoginPage(page)
+    await loginPage.loginAsEmploy()
+
+    const sidePanel = new SidePanel(page)
+    await expect(page.getByRole('link', { name: 'Time' })).toBeVisible()
+    await expect(page.getByRole('link', { name: 'Admin' })).toBeHidden()
 
 })
 
