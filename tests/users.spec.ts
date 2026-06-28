@@ -1,5 +1,6 @@
 import { expect, test } from "@playwright/test"
 import { LoginPage } from "./pageobjects/LoginPage"
+import { SideMenuOption, SidePanel } from "../components/SidePanel"
 
 test('get all usernames registred', async ({ page }) => {
 
@@ -123,11 +124,11 @@ test('select specific user for edition dinamic', async ({ page }) => {
     }
 
     const filteredUsers = usernames
-    .map(user => user?.trim())
-    .filter(user => user && user !== 'Admin') //hacemos un filtro para excluir al Admin de la lista que vamos a utilizar para sacar el random
+        .map(user => user?.trim())
+        .filter(user => user && user !== 'Admin') //hacemos un filtro para excluir al Admin de la lista que vamos a utilizar para sacar el random
 
-    if (filteredUsers.length === 0){
-        throw new Error ('No hay usuarios válidos para seleccionar')
+    if (filteredUsers.length === 0) {
+        throw new Error('No hay usuarios válidos para seleccionar')
     }
 
     const randomIndex = Math.floor(Math.random() * filteredUsers.length) //generamos un número random con respecto al tamaño del arreglo de usernames encontrados
@@ -152,3 +153,45 @@ test('select specific user for edition dinamic', async ({ page }) => {
     expect(page.locator("//label[contains(.,'Username')]/parent::div/following-sibling::div/input")).toHaveValue(userForEdition)
 
 })
+
+
+test('check user role options', async ({ page }) => {
+
+    const expectedRoleOptions = ['-- Select --', 'Admin', 'ESS'];
+
+    const loginPage = new LoginPage(page)
+    await loginPage.loginAsAdmin()
+
+    const sidePanel = new SidePanel(page)
+    await sidePanel.clickOnOption(SideMenuOption.ADMIN)
+
+    await page.locator("//label[text()='User Role']//parent::div//following-sibling::div").click()
+    const currentUserRoleOptions = await page.getByRole('listbox').getByRole('option').allInnerTexts()
+
+    console.log(currentUserRoleOptions)
+
+    expect(currentUserRoleOptions, 'The options displayed in the user role dropdown do not match the expected options').toEqual(expectedRoleOptions)
+
+})
+
+
+
+test('check status options', async ({ page }) => {
+
+    const expectedStatusOptions = ['-- Select --', 'Enabled', 'Disabled'];
+
+    const loginPage = new LoginPage(page)
+    await loginPage.loginAsAdmin()
+
+    const sidePanel = new SidePanel(page)
+    await sidePanel.clickOnOption(SideMenuOption.ADMIN)
+
+    await page.locator("//label[text()='Status']//parent::div//following-sibling::div").click()
+    const currentStatusOptions = await page.getByRole('listbox').getByRole('option').allInnerTexts()
+
+    console.log(currentStatusOptions)
+
+    expect(currentStatusOptions, 'The options displayed in the status dropdown do not match the expected options').toEqual(expectedStatusOptions)
+
+})
+
