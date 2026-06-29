@@ -2,10 +2,12 @@ import { expect, test } from '@playwright/test'
 import { LoginPage } from './pageobjects/LoginPage'
 import { SideMenuOption, SidePanel } from '../components/SidePanel'
 
-test('login hrm', async ({ page }) => {
-
+test('login to hrm', async ({ page }) => {
+/*
     const loginPage = new LoginPage(page)
-    await loginPage.loginAsAdmin()
+    await loginPage.loginAsAdmin()*/
+
+    await page.goto("/web/index.php/dashboard/index")
 
     const sidePanel = new SidePanel(page)
     await sidePanel.clickOnOption(SideMenuOption.ADMIN)
@@ -13,10 +15,21 @@ test('login hrm', async ({ page }) => {
 
 })
 
+test('login to hrm 2', async ({ page }) => {
+/*
+    const loginPage = new LoginPage(page)
+    await loginPage.loginAsAdmin()*/
+
+    await page.goto("/web/index.php/dashboard/index")
+
+    const sidePanel = new SidePanel(page)
+    await sidePanel.clickOnOption(SideMenuOption.ADMIN)
+
+})
+
 test('login hrm with employ', async ({ page }) => {
 
-    const loginPage = new LoginPage(page)
-    await loginPage.loginAsEmploy()
+    await page.goto("/web/index.php/dashboard/index")
 
     const sidePanel = new SidePanel(page)
     await expect(page.getByRole('link', { name: 'Time' })).toBeVisible()

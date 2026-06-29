@@ -212,7 +212,7 @@ test('Filter by user admin', async ({ page }) => {
     })
 
     const expectedAdminCount = await currentAdminRows.count()
-    console.log('Admin users filtered: '+ expectedAdminCount)
+    console.log('Admin users filtered: '+ expectedAdminCount) 
 
     //Aplicar filtro
     await page.locator("//label[text()='User Role']//parent::div//following-sibling::div").click()
